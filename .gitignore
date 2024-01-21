@@ -1,1 +1,6 @@
 /Brikman Y. Terraform. Up and Running. Writing...as Code 3ed 2022.pdf
+.terraform
+.terraform.*
+terraform.tfstate.backup
+terraform.tfstate
+.terraform
