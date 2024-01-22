@@ -49,6 +49,17 @@ Terraform also automatically loads a number of variable definitions files if the
 
 Files named exactly **terraform.tfvars** or **terraform.tfvars.json**
 Any files with names ending in **.auto.tfvars** or **.auto.tfvars.json**
+
+IF you have a `terraform.tfvars` file, these variables are automatically loaded. Just run `terraform plan` to confirm. 
+
+Now, if you have multiple variable files, terraform wouldn't know which file to load. So to load the appropriate tfvars file, type `terraform plan -var-file filename.tfvars`. This `filename.tfvars` is NOT automatically loaded. 
+
+However, if you want this file to be AUTOMATICALLY loaded you need to rename the file. In our case it would be `filename.auto.tfvars`
+
+There is another way to load the variables in CLI which is much more dynamic.
+- ` tf plan -var=VARIABLE_NAME="value" ` (SINGLE PARAMATER)
+- `tf plan -var=VARIABLE_NAME_1="value1" -var=VARIABLE_NAME_2="value2" ` (MULTIPLE PARAMETER)
+
 ## 
 
 ### Variable Definition Precedence
@@ -80,6 +91,15 @@ output "instance_ip_addr" {
   value = aws_instance.server.private_ip
 }
 ```
+
+For CLI
+- `terraform output`
+- `terraform output name`
+- `terraform output -raw name`
+- `terraform output -json`
+
+### Accessing Child Module Outputs
+In a parent module, outputs of child modules are available in expressions as module.<MODULE NAME>.<OUTPUT NAME>. For example, if a child module named `web_server declared an output named `instance_ip_addr, you could access that value as `module.web_server.instance_ip_addr`.
 
 ### Locals Values
 
