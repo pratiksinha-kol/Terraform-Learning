@@ -24,7 +24,7 @@ provider "aws" {
 
 data "aws_ami" "east-amazon-linux-2" {
   most_recent = true
-  owners      = ["amazon"]
+  //owners      = ["amazon"]
   provider    = aws.east
 
   filter {
@@ -40,7 +40,7 @@ data "aws_ami" "east-amazon-linux-2" {
 
 data "aws_ami" "west-amazon-linux-2" {
   most_recent = true
-  owners      = ["amazon"]
+  //owners      = ["amazon"]
   provider    = aws.west
 
   filter {
