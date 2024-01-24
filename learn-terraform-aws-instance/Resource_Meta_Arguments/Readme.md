@@ -105,3 +105,8 @@ data "aws_ami" "web" {
 
 https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle 
 
+It defines the general lifecycle for resources. There are condition such as `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and `replace_triggered_by`.
+
+```
+
+```
