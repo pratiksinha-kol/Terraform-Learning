@@ -100,3 +100,8 @@ data "aws_ami" "web" {
 }
 
 ```
+
+### Lifecycle
+
+https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle 
+
