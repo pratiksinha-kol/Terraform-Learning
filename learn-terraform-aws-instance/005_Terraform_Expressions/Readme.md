@@ -163,27 +163,129 @@ The special [*] symbol iterates over all of the elements of the list given to it
 var.list[*].interfaces[0].name
 ```
 
-### Dynamic Blocks
-
-https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks  
-
-Terraform provides the dynamic block to create repeatable nested blocks within a resource. A dynamic block is similar to the for expression. 
-
-A `dynamic` block iterates over a child resource and generates a nested block for each element of that resource.
-
-### Version Constraints
-
-https://developer.hashicorp.com/terraform/language/expressions/version-constraints 
-
-Anywhere that Terraform lets you specify a range of acceptable versions for something, it expects a specially formatted string known as a version constraint. Version constraints are used when configuring:
-
-- [Modules](https://developer.hashicorp.com/terraform/language/modules)
-- [Provider requirements](https://developer.hashicorp.com/terraform/language/providers/requirements)
-- [The required_version setting](https://developer.hashicorp.com/terraform/language/settings#specifying-a-required-terraform-version) in the `terraform` block.
 
 
-#### Version Constraint Syntax
 
+##
+
+### Terraform Console
+
+To enter into Terraform Console, `terraform console`
+
+#### Using Interpolation
+
+```
+"Hello World"
 ```
 
 ```
+"Hello World \n"
+```
+
+If you have set a variable, you can use it via interpolation 
+```
+"Adios ${var.hello}"
+```
+
+#### Using Directive
+
+Use in `Terraform Console`:
+
+If you set the variable `hello="Pratik"` which is set in terraform.tfvars file.
+
+
+```
+"Hello, %{ if var.hello != "" }${var.hello}%{ else }unnamed%{ endif }!"
+```
+For above, If variable `hello` is `NOT BLANK`, it will print `Hello Pratik!`
+
+
+```
+"Hello, %{if var.hello == "Pratik"}Champ%{ else }Unknown%{ endif }!"
+```
+For above, If variable `hello` is `Pratik`, it will print `Hello Champ!`
+
+```
+"Hello, %{if var.hello == "Pratik"}Champ%{ else }Unknown%{ endif }!"
+```
+
+For above, If variable `hello` is `BLANK`, it will print `Hello Unknown!`
+
+### For Expression Examples (Including Syntax)
+
+#### List
+Just like string template, we have created a `list` to iterate. The list is `states=["andhra pradesh","west bengal","uttar pradesh","arunachal pradesh","jammu and kashmir","tamil nadu", "madhya pradesh"]` which is set in terraform.tfvars file.
+
+
+```
+[for s in var.states : lower(s)]
+```
+
+```
+[for s in var.states : upper(s)]
+```
+
+To return it as Maps:
+
+```
+{for i, w in var.states : "${i}" => title(w)}
+```
+
+## 
+
+#### Maps
+For `MAPS`, to iterate over it you need a different syntax. We have created a `map` to iterate in the t`erraform.tfvars` by the name of `states_capital`. 
+
+```
+[for k, v in var.states_capital : length(k) + length(v)]
+```
+
+```
+[for i, v in var.states_capital : "${i} is ${v}"]
+```
+
+```
+[for i, v in var.states_capital : "${i}'s capital is ${upper(v)}"]
+```
+
+```
+[for i, v in var.states_capital : "${title(i)}'s capital is ${upper(v)}"]
+```
+```
+[for i, v in var.states_capital : "${upper(v)}"]
+```
+```
+[for i, v in var.states_capital : "${title(i)}"]
+```
+
+#### Filtering
+
+```
+[for s in var.states : upper(s) if s != ""]
+```
+
+```
+[for p,q in var.states_capital : upper(p) if q == "Kolkata"]
+```
+
+```
+[for p,q in var.states_capital : upper(p) if q != "Kolkata"]
+```
+## 
+#### Splats
+
+```
+[for m in var.states_capital_cm_splats : m.CM]
+```
+
+```
+[for m in var.states_capital_cm_splats : m.Capital]
+```
+
+```
+var.states_capital_cm_splats[*].CM
+```
+```
+[for m in var.states_capital_cm_splats : upper(m.CM)]
+```
+
