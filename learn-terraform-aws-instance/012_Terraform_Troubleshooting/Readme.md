@@ -54,3 +54,7 @@ TF_LOG_PROVIDER=TRACE terraform apply
 TF_LOG=TRACE terraform apply
 ```
 
+This will create a log file with the given name. 
+```
+TF_LOG=TRACE TF_LOG_PATH=./terraform_logs.txt terraform apply 
+```
