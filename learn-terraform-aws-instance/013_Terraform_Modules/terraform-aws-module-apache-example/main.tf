@@ -21,17 +21,9 @@ data "template_file" "user_data" {
 resource "aws_instance" "server" {
   ami                    = data.aws_ami.east-amazon-linux-2.id
   instance_type          = var.instance_type
-  //key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_http_tls.id]
   user_data              = data.template_file.user_data.rendered
 
-
-/*   connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    private_key = file("C:/Users/.ssh/terraform")
-    host        = self.public_ip
-  } */
 
 
   tags = {
@@ -39,12 +31,6 @@ resource "aws_instance" "server" {
     Env  = local.env
   }
 }
-
-// Using this key during EC2 instance creation by referencing key_name
-/* resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
-  public_key = var.public_key
-} */
 
 data "aws_vpc" "main" {
   id = var.vpc_id
