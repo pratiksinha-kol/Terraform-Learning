@@ -14,7 +14,7 @@ The **[Terraform Registry](https://registry.terraform.io/browse/modules)** hosts
 
 Also, members of your organization might produce modules specifically crafted for your own infrastructure needs. **[Terraform Cloud](https://cloud.hashicorp.com/products/terraform)** and **[Terraform Enterprise](https://developer.hashicorp.com/terraform/enterprise)** both include a private module registry for sharing modules internally within your organization.
 
-### Publishing Modules
+### How to Publish Modules 
 
 - Go to [Github](https://github.com/), create a new repository. Use the same name as the module. Set it as `Public`.
 - After creating a repository on Githib, go to the sub-module(or module). Initialize the repository by performing `git init`. 
@@ -34,6 +34,5 @@ git push --tags
 - Go to **[Terraform Registry](https://registry.terraform.io/)** and Sign-in using your GitHub account
 - On the top right corner, under **Publish**, select Module. There you need to select the appropriate repository which you had for this purpose.    
 - After reading Agreement, click on **Publish Module**. 
-- 
 
 

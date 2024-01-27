@@ -15,21 +15,18 @@ data "aws_ami" "east-amazon-linux-2" {
 }
 
 data "template_file" "user_data" {
-  # template = file(${abspathabspath(path.module)}/userdata.yml")
   template = file("${abspath(path.module)}/userdata.yml")
 }
 
 resource "aws_instance" "server" {
-  ami           = data.aws_ami.east-amazon-linux-2.id
-  instance_type = var.instance_type
-  # ami                    = "ami-0c0b74d29acd0cd97"
-  # instance_type          = "t2.micro"
-  # key_name               = aws_key_pair.deployer.key_name
+  ami                    = data.aws_ami.east-amazon-linux-2.id
+  instance_type          = var.instance_type
+  //key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_http_tls.id]
   user_data              = data.template_file.user_data.rendered
 
 
-  /* connection {
+/*   connection {
     type        = "ssh"
     user        = "ec2-user"
     private_key = file("C:/Users/.ssh/terraform")
@@ -46,11 +43,10 @@ resource "aws_instance" "server" {
 // Using this key during EC2 instance creation by referencing key_name
 /* resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9dlubaj9AZC3zV6naMI95Xf2ZV+GbKCiLvLoT+F/+afQHWchAJCHU0JhsOoELvOUSi5SM2e+L8EKL8UPYmzu9mK8zJG4tt6ypiotTYtFnszMzOKuPGSx6jSX9YmChQGMVpFg7zdZr7zUxNuPUm1a+/BHXPtd8+XKW6JwzqaqGwBZXHIgCgCTNPBvbr/zSJyYasVQxHFhN4XH2FSRXgW8cj7kDncHJYlwpwIKxsHhmDGib0wp+fM1N7nh+M+O4XRZ6Sv0v7KVwpasJY7H4MFELBs1y6zBrniVrmri0VcpbhK3IFACmNSnYfOA8imSJ/T9xYV2Dmgc/2LVlXqhk6agdT+jQzSsMYcmi5S+n5am6g7DeLVQ2owAr4jsSYTuNAp25ZLzEjYiLBy5rLDBvsxS/GSzhCU4CjhBGiHs/NHk2GPvEfBBU/VYzMQognCDXDf+HLIpALl/VovE/kDEmFofwVdn/2A0wyOb7TWVWcEr0QS4bB1gYa8eWJcXnQMC0rYM= PRATIK SINHA@PRATIK-SINHA"
+  public_key = var.public_key
 } */
 
 data "aws_vpc" "main" {
-  # id = "vpc-04560e2c74ba4b195"
   id = var.vpc_id
 }
 
