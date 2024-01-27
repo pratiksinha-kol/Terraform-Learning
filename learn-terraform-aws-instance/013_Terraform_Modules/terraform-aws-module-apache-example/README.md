@@ -13,8 +13,10 @@ terraform {
 
 module "apache_module_example" {
   source        = ".//terraform-aws-module-apache-example"
-  ami           = "ami-0c0b74d29acd0cd97"
+  ami           = "ami-0000000000"
   instance_type = "t2.micro"
+  vpc_id        = "vpc-000000000000"
+  my_ip_cidr_ipv4 = "xxx.xxx.xxx.xxx/32"
 }
 
 output "public_ip" {
@@ -22,7 +24,7 @@ output "public_ip" {
 }
 
 output "private_ip" {
-  value       = module.apache_module_example.private_ip
+  value = module.apache_module_example.private_ip
 }
 ```
 
