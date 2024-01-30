@@ -1,10 +1,16 @@
 terraform {
+  cloud {
+    organization = "pratiksinha-org"
 
+    workspaces {
+      name = "vcs-terraform"
+    }
+  }
 }
 
 
 module "apache_module_example" {
-  source          = var.source
+  source          = "pratiksinha-kol/module-apache-example/aws"
   version         = "1.0.4"
   ami             = var.ami
   instance_type   = var.instance_type

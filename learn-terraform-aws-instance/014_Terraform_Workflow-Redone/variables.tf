@@ -1,7 +1,4 @@
-variable "source" {
-  type        = string
-  description = "Source of your module"
-}
+
 
 variable "ami" {
   type        = string
@@ -21,9 +18,4 @@ variable "vpc_id" {
 variable "my_ip_cidr_ipv4" {
   type        = string
   description = "Your own IP address in the format xx.xx.xx.xx/32"
-}
-
-variable "version" {
-  type        = string
-  description = "version of your module"
 }
