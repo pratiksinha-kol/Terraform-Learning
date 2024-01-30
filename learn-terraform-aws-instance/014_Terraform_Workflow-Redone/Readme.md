@@ -36,8 +36,3 @@ In the main.tf file, ensure the version that is being used is latest. As mention
 - Add these changes by performing `git add`, `git commit` and `git push`
 - Go to Github page of the working repository (mine is `vcs-terraform`), and click on **Compare and Pull Request** 
 - Whenever, there is any kind of change in the `main` branch, `terraform plan` will be executed. If you want to perform `terraform apply` automatically without giving manual permission, go to the _Setting_ section of the _Terraform Cloud Workspace_ and select the behaviour accordingly. 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 1b4e078719d3ba82686fe39fab66864c70daf70c
