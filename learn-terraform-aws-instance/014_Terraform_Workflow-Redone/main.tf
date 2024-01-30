@@ -7,9 +7,19 @@ terraform {
     }
   }
 }
+provider "aws" {
+  region = "us-east-1"
+}
 
 
-module "apache_module_example" {
+//S3 Bucket
+resource "aws_s3_bucket" "bucket" {
+  bucket = var.bucket
+}
+
+
+//Latest Version is 1.0.4 is being used
+module "module-apache-example" {
   source          = "pratiksinha-kol/module-apache-example/aws"
   version         = "1.0.4"
   ami             = var.ami
@@ -23,5 +33,9 @@ output "public_ip" {
 }
 
 output "private_ip" {
-  value = module.apache_module_example.private_ip
+  value = module.module-apache-example.private_ip
+}
+
+output "bucket_name" {
+  value = aws_s3_bucket.bucket.id
 }
