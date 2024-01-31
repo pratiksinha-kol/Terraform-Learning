@@ -18,13 +18,31 @@ data "template_file" "user_data" {
   template = file("${abspath(path.module)}/userdata.yml")
 }
 
+data "aws_vpc" "main" {
+  id = var.vpc_id
+}
+
+// This is deprecated (DO NOT USE)
+/* data "aws_subnet_ids" "subnet_ids" {
+  vpc_id = data.aws_vpc.main.id
+} */
+
+// https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets 
+data "aws_subnets" "subnet_ids" {
+  filter {
+    name   = "vpc-id"
+    values = [var.vpc_id]
+  }
+}
+
 resource "aws_instance" "server" {
   ami                    = data.aws_ami.east-amazon-linux-2.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.allow_http_tls.id]
   user_data              = data.template_file.user_data.rendered
-
-
+  // Need to modify based on the subnet i.e. private or public
+  subnet_id                   = tolist(data.aws_subnets.subnet_ids.ids)[0]
+  associate_public_ip_address = true
 
   tags = {
     Name = "MyInstance-${local.project_name}"
@@ -32,9 +50,6 @@ resource "aws_instance" "server" {
   }
 }
 
-data "aws_vpc" "main" {
-  id = var.vpc_id
-}
 
 
 resource "aws_security_group" "allow_http_tls" {
