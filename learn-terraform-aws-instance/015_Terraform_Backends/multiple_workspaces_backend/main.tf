@@ -18,7 +18,9 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region      = "us-east-1"
+  // Using Workspace based on set variables
+  //assume_role = var.workspace_iam_roles[terraform.workspace]
 }
 
 

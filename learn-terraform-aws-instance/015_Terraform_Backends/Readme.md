@@ -54,3 +54,67 @@ resource "aws_instance" "foo" {
   subnet_id = "${data.terraform_remote_state.vpc.subnet_id}"
 }
 ```
+
+### Standard S3 backend
+https://developer.hashicorp.com/terraform/language/settings/backends/s3 
+
+It is recommended to enable versioning on the bucket beforehand as the Terraform State keeps on changing. 
+
+```
+terraform {
+
+  backend "s3" {
+    // Bucket name
+    bucket = "terraform-backend-psh"
+    // State file
+    key    = "backend/state_file/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+```
+
+### Multiple Workspace S3 backend
+
+```
+terraform workspace
+```
+
+Show the list of workspaces
+```
+terraform workspace list
+```
+
+Create a new workspaces, (`staging` the name of new workspace)
+
+```
+terraform workspace new staging
+```
+
+#### Delegating Access
+https://developer.hashicorp.com/terraform/language/settings/backends/s3 
+
+Use conditional configuration to pass a different assume_role value to the AWS provider depending on the selected workspace. For example:
+
+```hcl
+variable "workspace_iam_roles" {
+  default = {
+    staging    = "arn:aws:iam::STAGING-ACCOUNT-ID:role/Terraform"
+    production = "arn:aws:iam::PRODUCTION-ACCOUNT-ID:role/Terraform"
+  }
+}
+
+provider "aws" {
+  # No credentials explicitly set here because they come from either the
+  # environment or the global credentials file.
+
+  assume_role = {
+    role_arn = "${var.workspace_iam_roles[terraform.workspace]}"
+  }
+}
+
+```
+## 
+Rectify `git push` issue: 
+```
+$ git pull origin main --allow-unrelated-histories
+```

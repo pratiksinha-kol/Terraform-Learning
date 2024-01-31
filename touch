@@ -1,0 +1,277 @@
+    1  #!/bin/bash
+    2  yum update -y
+    3  yum install -y httpd
+    4  systemctl start httpd
+    5  systemctl enable httpd
+    6  EC2AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone) 
+    7  echo '<center><h1>This Amazon EC2 instance is located in Availability Zone: AZID </h1></center>' > /var/www/html/index.txt
+    8  sed "s/AZID/$EC2AZ/" /var/www/html/index.txt > /var/www/html/index.html
+    9  mkdir 0141_Terraform_Workflow
+   10  rmdir 0141
+   11  rmdir 0141_Terraform_Workflow/
+   12  cd learn-terraform-aws-instance/
+   13  mkdir 0141_Terraform_Workflow
+   14  mkdir 015_Terraform_Backends
+   15  cd 015_Terraform_Backends/
+   16  ls -la
+   17  touch Readme.md
+   18  git status
+   19  cd ..
+   20  mv 0141_Terraform_Workflow/ 014_Terraform_Workflow-Redone
+   21  git status
+   22  cd 015_Terraform_Backends/
+   23  ls
+   24  cd standard_backend_s3/
+   25  touch main.tf
+   26  alias tf="terraform"
+   27  tf
+   28  tf -v
+   29  tf tfenv
+   30  tfenv
+   31  tf upgrade
+   32  tf update
+   33  tf -v
+   34  tf -v
+   35  tf -v
+   36  tf -v
+   37  clear
+   38  tf
+   39  tf -v
+   40  tf -v
+   41  cd ..
+   42  cd ..
+   43  ls 
+   44  cd 014_Terraform_Workflow-Redone/
+   45  ls -la
+   46  clear
+   47  tf -v
+   48  clear
+   49  touch main.tf
+   50  touch variables.tf
+   51  touch terraform.tfvars
+   52  tf fmt
+   53  tf fmt
+   54  touch Readme.md
+   55  cd ..
+   56  cd 014_Terraform_Workflow
+   57  ls
+   58  ls -la
+   59  touch Readme.md
+   60  cd ..
+   61  cd 014_Terraform_Workflow-Redone/
+   62  ls -la
+   63  git init
+   64  git add A
+   65  git add -A
+   66  git status
+   67  git add .
+   68  git status
+   69  git deinit
+   70  ls -la
+   71  rm -rf .git
+   72  cd ..
+   73  cd 014_Terraform_Workflow-Redone/
+   74  ls -la
+   75  git init
+   76  git add .
+   77  git status
+   78  git commit -m "First Commit"
+   79  git branch -M main
+   80  git remote add origin https://github.com/pratiksinha-kol/vcs-terraform.git
+   81  git push -u origin main
+   82  git pull origin master
+   83  git branch
+   84  $ git push origin master
+   85  git push -u origin main
+   86  git push -f
+   87      git push --set-upstream origin main
+   88  git push -f
+   89  git help config
+   90  git push --set-upstream origin main
+   91  git status
+   92  tf init
+   93  tf init
+   94  tf init
+   95  tf fmt
+   96  tf validate
+   97  tf plan
+   98  tf plan
+   99  tf init
+  100  tf plan
+  101  git status
+  102  git add .
+  103  git rm --cached .terraform/modules/apache_module_example
+  104  git rm --cached .terraform/modules/apache_module_example -f
+  105  git add .
+  106  git status
+  107  git status
+  108  git status
+  109  git status
+  110  git add .
+  111  git status
+  112  git status
+  113  git add .
+  114  git status
+  115  git log
+  116  git log
+  117  git status
+  118  git add .
+  119  git commit -m "Now let us see"
+  120  git revert
+  121  git log
+  122  git revert # Local .terraform directories
+  123  **/.terraform/*
+  124  # Terraform lockfile
+  125  .terraform.lock.hcl
+  126  # .tfstate files
+  127  *.tfstate
+  128  *.tfstate.*
+  129  # Crash log files
+  130  crash.log
+  131  # Exclude all .tfvars files, which are likely to contain sentitive data, such as
+  132  # password, private keys, and other secrets. These should not be part of version
+  133  # control as they are data points which are potentially sensitive and subject
+  134  # to change depending on the environment.
+  135  *.tfvars
+  136  # Ignore override files as they are usually used to override resources locally and so
+  137  # are not checked in
+  138  override.tf
+  139  override.tf.json
+  140  *_override.tf
+  141  *_override.tf.json
+  142  # Ignore CLI configuration files
+  143  .terraformrc
+  144  terraform.rc
+  145  git log
+  146  git revert f3f720ef35cd36b9fd18464b11bc291fb6954c76
+  147  git status
+  148  clear
+  149  git add .
+  150  git status
+  151  git commit -m "see now"
+  152  git push
+  153  git push --set-upstream origin main
+  154  git branch
+  155  git checkout -b s3_bucket
+  156  git branch
+  157  git checkout main
+  158  tf plan
+  159  tf fmt
+  160  tf plan
+  161  tf init
+  162  tf fmt
+  163  tf plan
+  164  git status
+  165  git add .
+  166  git commit -m "Please work"
+  167  git push
+  168  git push --set-upstream origin main
+  169  git branch
+  170  git checkout s3_bucket 
+  171  tf fmt
+  172  tf fmt
+  173  git branch
+  174  touch .gitignore
+  175  git status
+  176  tf plan
+  177  tf plan
+  178  git status
+  179  git add .
+  180  git status
+  181  git add .
+  182  git commit -m "Add bucket on s3_bucket branch"
+  183  git push
+  184  git push --set-upstream origin s3_bucket1~
+  185  git push --set-upstream origin s3_bucket
+  186  git fetch
+  187  git push --set-upstream origin s3_bucket
+  188  git push --set-upstream origin main
+  189  git fetch
+  190  git push
+  191  git push --set-upstream origin s3_bucket
+  192  git pull
+  193  git pull main s3_bucket
+  194  git pull s3_bucket
+  195  git push --set-upstream origin s3_bucket
+  196  git push -f
+  197  git push --set-upstream origin s3_bucket
+  198  git pull
+  199   git pull origin first_features 
+  200   git pull origin s3_bucket
+  201  git checkout main
+  202  git remote add origin https://github.com/pratiksinha-kol/vcs-terraform.git
+  203  git push -u origin main
+  204  git pull
+  205  git pull origin s3_bucket
+  206  git pull origin main --allow-unrelated-histories
+  207  git status
+  208  git merge origin/s3_bucket 
+  209  git merge s3_bucket/origin
+  210  git status
+  211  git add .
+  212  git status
+  213  git commit -m "merging conflict"
+  214  git pull origin s3_bucket 
+  215  git branch s3_bucket 
+  216  git checkout s3_bucket 
+  217  git status
+  218  git push
+  219  git push --set-upstream origin s3_bucket
+  220  git pull
+  221  git pull origin s3_bucket 
+  222  history 
+  223  git pull origin main --allow-unrelated-histories
+  224  git status
+  225  git add .
+  226  git status
+  227  git commit -m "s3_bucket branch commit"
+  228  git push
+  229  git push --set-upstream origin s3_bucket
+  230  git push --set-upstream origin s3_bucket
+  231  git push
+  232  git status
+  233  git log
+  234  git add .
+  235  git status
+  236  git push
+  237  git push --set-upstream origin s3_bucket
+  238  git push --set-upstream origin s3_bucket
+  239  git checkout main
+  240  git status
+  241  git log
+  242  git checkout s3_bucket 
+  243  git status
+  244  git add .
+  245  git status
+  246  git checkout main
+  247  git add .
+  248  git status
+  249  cd ..
+  250  cd ..
+  251  git status
+  252  git add .
+  253  git commit -m "Terraform Workflow Rectified"
+  254  git push
+  255  hsitory
+  256  history 
+  257  cd learn-terraform-aws-instance/014_Terraform_Workflow-Redone/
+  258  ls -la
+  259  cat variables.tf 
+  260  git status
+  261  cat terraform.tfvars 
+  262  cd ..
+  263  cd ..
+  264  git status
+  265  git status
+  266  git add .
+  267  git commit -m "Rectified variables.tf file"
+  268  git push
+  269  history 
+  270  git pull origin main --allow-unrelated-histories
+  271  git status
+  272  git push
+  273  cat learn-terraform-aws-instance/014_Terraform_Workflow-Redone/variables.tf 
+  274  history >> touch history.txt
+  275  history || touch history.txt
+  276  echo history
+  277  history >> touch
