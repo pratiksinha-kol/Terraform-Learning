@@ -23,7 +23,7 @@ terraform init -backend-config=backend.hcl
 ```
 
 
-#### The terraform_remote_state Data Source
+### The terraform_remote_state Data Source
 https://developer.hashicorp.com/terraform/language/state/remote-state-data 
 
 The `terraform_remote_state` data source uses the latest state snapshot from a specified state backend to retrieve the root module output values from some other Terraform configuration.
@@ -113,6 +113,30 @@ provider "aws" {
 }
 
 ```
+
+### The terraform_remote_state Data Source
+
+https://developer.hashicorp.com/terraform/language/state/remote-state-data 
+
+The `terraform_remote_state` data source uses the latest state snapshot from a specified state backend to retrieve the root module output values from some other Terraform configuration.
+
+You can use the `terraform_remote_state` data source without requiring or configuring a provider. It is always available through a built-in provider with the source address `terraform.io/builtin/terraform`. That provider does not include any other resources or data sources.
+
+In my hands-on, I have created two projects, `project1` and `project2`. `Project2` fetches it from the `project1`.
+
+```
+data "terraform_remote_state" "vpc" {
+  backend = "local"
+  // Location of the file
+  config = {
+    path = "../project1/terraform.tfstate"
+  }
+}
+```
+
+
+
+
 ## 
 Rectify `git push` issue: 
 ```
