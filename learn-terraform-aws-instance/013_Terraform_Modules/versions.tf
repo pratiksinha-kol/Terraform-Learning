@@ -12,6 +12,6 @@ You can it when running it locally.
 Hence, [# profile = "default"] is not being added. See below for proof
  */
 provider "aws" {
-  region = "us-east-1"
-  alias  = "east"
+  region  = "us-east-1"
+  alias   = "east"
 }

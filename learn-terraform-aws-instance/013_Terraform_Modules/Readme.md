@@ -24,6 +24,7 @@ git add .
 git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/profile-name/sub-module-name.git
+git remote add origin https://github.com/pratiksinha-kol/terraform-aws-module-apache-example.git
 git push -u origin main
 ```
 - Don't forget to tag your main branch, otherwise you won't be able to publish it on Terraform provider. For that, use these commands:  
