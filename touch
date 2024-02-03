@@ -6,74 +6,14 @@
     6  EC2AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone) 
     7  echo '<center><h1>This Amazon EC2 instance is located in Availability Zone: AZID </h1></center>' > /var/www/html/index.txt
     8  sed "s/AZID/$EC2AZ/" /var/www/html/index.txt > /var/www/html/index.html
-    9  mkdir 0141_Terraform_Workflow
-   10  rmdir 0141
-   11  rmdir 0141_Terraform_Workflow/
-   12  cd learn-terraform-aws-instance/
-   13  mkdir 0141_Terraform_Workflow
-   14  mkdir 015_Terraform_Backends
-   15  cd 015_Terraform_Backends/
-   16  ls -la
-   17  touch Readme.md
-   18  git status
-   19  cd ..
-   20  mv 0141_Terraform_Workflow/ 014_Terraform_Workflow-Redone
-   21  git status
-   22  cd 015_Terraform_Backends/
-   23  ls
-   24  cd standard_backend_s3/
-   25  touch main.tf
+
+    "echo '<center><h1>This Amazon EC2 instance built from Terraform Packer</h1></center>'" > /var/www/html/index.html
+    
    26  alias tf="terraform"
-   27  tf
-   28  tf -v
-   29  tf tfenv
-   30  tfenv
-   31  tf upgrade
-   32  tf update
-   33  tf -v
-   34  tf -v
-   35  tf -v
    36  tf -v
    37  clear
-   38  tf
-   39  tf -v
-   40  tf -v
-   41  cd ..
-   42  cd ..
-   43  ls 
-   44  cd 014_Terraform_Workflow-Redone/
-   45  ls -la
-   46  clear
-   47  tf -v
-   48  clear
-   49  touch main.tf
-   50  touch variables.tf
-   51  touch terraform.tfvars
-   52  tf fmt
-   53  tf fmt
-   54  touch Readme.md
-   55  cd ..
-   56  cd 014_Terraform_Workflow
-   57  ls
-   58  ls -la
-   59  touch Readme.md
-   60  cd ..
-   61  cd 014_Terraform_Workflow-Redone/
-   62  ls -la
+   
    63  git init
-   64  git add A
-   65  git add -A
-   66  git status
-   67  git add .
-   68  git status
-   69  git deinit
-   70  ls -la
-   71  rm -rf .git
-   72  cd ..
-   73  cd 014_Terraform_Workflow-Redone/
-   74  ls -la
-   75  git init
-   76  git add .
    77  git status
    78  git commit -m "First Commit"
    79  git branch -M main
@@ -88,61 +28,7 @@
    88  git push -f
    89  git help config
    90  git push --set-upstream origin main
-   91  git status
-   92  tf init
-   93  tf init
-   94  tf init
-   95  tf fmt
-   96  tf validate
-   97  tf plan
-   98  tf plan
-   99  tf init
-  100  tf plan
-  101  git status
-  102  git add .
-  103  git rm --cached .terraform/modules/apache_module_example
-  104  git rm --cached .terraform/modules/apache_module_example -f
-  105  git add .
-  106  git status
-  107  git status
-  108  git status
-  109  git status
-  110  git add .
-  111  git status
-  112  git status
-  113  git add .
-  114  git status
-  115  git log
-  116  git log
-  117  git status
-  118  git add .
-  119  git commit -m "Now let us see"
-  120  git revert
-  121  git log
-  122  git revert # Local .terraform directories
-  123  **/.terraform/*
-  124  # Terraform lockfile
-  125  .terraform.lock.hcl
-  126  # .tfstate files
-  127  *.tfstate
-  128  *.tfstate.*
-  129  # Crash log files
-  130  crash.log
-  131  # Exclude all .tfvars files, which are likely to contain sentitive data, such as
-  132  # password, private keys, and other secrets. These should not be part of version
-  133  # control as they are data points which are potentially sensitive and subject
-  134  # to change depending on the environment.
-  135  *.tfvars
-  136  # Ignore override files as they are usually used to override resources locally and so
-  137  # are not checked in
-  138  override.tf
-  139  override.tf.json
-  140  *_override.tf
-  141  *_override.tf.json
-  142  # Ignore CLI configuration files
-  143  .terraformrc
-  144  terraform.rc
-  145  git log
+    git log
   146  git revert f3f720ef35cd36b9fd18464b11bc291fb6954c76
   147  git status
   148  clear
@@ -275,3 +161,48 @@
   275  history || touch history.txt
   276  echo history
   277  history >> touch
+
+
+=============================================
+
+"echo '<center><h1>This Amazon EC2 instance built from Terraform Packer</h1></center>'" > /var/www/html/index.html
+
+build {
+  name    = "apache-aws-image"
+  sources = [
+    "source.amazon-ebs.httpd"
+  ]
+  
+  provisioner "shell" {
+  environment_vars = [
+    "FOO=hello world",
+  ]
+  inline = [
+    "echo Installing Apache",
+    "sleep 10",
+    yum update -y
+    yum install -y httpd
+    systemctl start httpd
+    systemctl enable httpd
+    "echo \"FOO is $FOO\" > example.txt",
+  ]
+}
+
+----------^^^^^^^^^^^^^^^^-----------------
+
+provisioner "shell" {
+    script = userdata.sh
+  }
+
+----------^^^^^^^^^^^^^^^^-----------------
+
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.9.0"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+
+----------^^^^^^^^^^^^^^^^-----------------
